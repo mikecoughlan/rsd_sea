@@ -165,10 +165,15 @@ def getting_mean_lat(stations):
 	return mean_lat
 
 
-def combining_stations_into_regions(stations, rsd, features=None, mean=False, std=False, maximum=False, median=False, map_keys=None):
+def combining_stations_into_regions(stations, rsd, limit_to_twins=False, features=None, mean=False, std=False, maximum=False, median=False, map_keys=None):
 
-	start_time = pd.to_datetime('2009-07-20')
-	end_time = pd.to_datetime('2017-12-31')
+	if limit_to_twins:
+		start_time = pd.to_datetime('2009-07-20')
+		end_time = pd.to_datetime('2017-12-31')
+	else:
+		start_time = pd.to_datetime('1995-01-01')
+		end_time = pd.to_datetime('2019-12-31')
+		
 	twins_time_period = pd.date_range(start=start_time, end=end_time, freq='min')
 
 	regional_df = pd.DataFrame(index=twins_time_period)
