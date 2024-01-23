@@ -173,7 +173,7 @@ def combining_stations_into_regions(stations, rsd, limit_to_twins=False, feature
 	else:
 		start_time = pd.to_datetime('1995-01-01')
 		end_time = pd.to_datetime('2019-12-31')
-		
+
 	twins_time_period = pd.date_range(start=start_time, end=end_time, freq='min')
 
 	regional_df = pd.DataFrame(index=twins_time_period)
@@ -212,9 +212,9 @@ def combining_stations_into_regions(stations, rsd, limit_to_twins=False, feature
 
 	indexer = pd.api.indexers.FixedForwardWindowIndexer(window_size=15)
 
-	regional_df['rsd'] = rsd['max_rsd']['max_rsd']
-	regional_df['rolling_rsd'] = rsd['max_rsd']['max_rsd'].rolling(indexer, min_periods=1).max()
-	regional_df['MLT'] = rsd['max_rsd']['MLT']
+	regional_df['rsd'] = rsd['max_rsd']
+	regional_df['rolling_rsd'] = rsd['max_rsd'].rolling(indexer, min_periods=1).max()
+	regional_df['MLT'] = rsd['mlt']
 	regional_df['cosMLT'] = np.cos(regional_df['MLT'] * 2 * np.pi * 15 / 360)
 	regional_df['sinMLT'] = np.sin(regional_df['MLT'] * 2 * np.pi * 15 / 360)
 
